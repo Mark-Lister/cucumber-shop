@@ -1,18 +1,19 @@
 Feature: Buy products
-    As a customer
-    I want to buy products
+    As a manager
+    I want to manage inventory stock levels
+    So that we know when we need to reorder stock.
 
 Background:
-    Given a product Bread with price 20.50 exists
-    And a product Jam with price 80.00 exists
+    Given a product Bread with quantity 10 price 50.00
+    And a product Jam with quantity 5 price 20.00
+    And a product Butter with quantity 2 price 10.00
 
-Scenario: Buy one product
+Scenario: Buy from stock product
     When I buy Bread with quantity 2
-    Then total should be 41.00
+    Then total should be 100.00
+    Then there's 8 items of Bread left
 
-Scenario: Buy multiple products
-    When I buy Bread with quantity 2
-    And I buy Jam with quantity 1
-    Then total should be 121.00
-
-
+Scenario: Buy and empty stock
+    When I buy Jam with quantity 5
+    Then total should be 100.00
+    Then there's 0 items of Jam left
